@@ -14,7 +14,7 @@ export const USER_ACTION_TYPES = {
 
 const userReducer = (state, action) => {
   console.log('dispatched');
-  console.log(action);
+ 
   const { type, payload } = action;
 
   switch(type) {
@@ -34,8 +34,9 @@ const INITIAL_STATE = {
 
 // component
 export const UserProvider = ({ children }) => {
-
     
+    // useReducer takes 2 arguments: Reducer and State (Initial state),
+    // we always get 2 arguments back: 1) state object, current values being stored and a Dispatch function
     const [ state, dispatch ] = useReducer(userReducer, INITIAL_STATE);
     
     const {currentUser} = state;
