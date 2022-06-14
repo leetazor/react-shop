@@ -15,7 +15,6 @@ const CartIcon = () => {
 
   const cartCount = useSelector(selectCartCount);
   const isThisCartOpen = useSelector(isCartOpen);
-  console.log(!isThisCartOpen);
   
   // toggle function - it calls setIsCartOpen method to set isCartOpen value to the opposite value
   const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isThisCartOpen));
