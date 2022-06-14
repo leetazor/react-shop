@@ -6,7 +6,7 @@ import logger from 'redux-logger';
 import { rootReducer } from './root-reducer';
 
 // alternative custom logger
-import { loggerMiddleware } from './middleware/logger';
+//import { loggerMiddleware } from './middleware/logger';
 
 //Persist is for storing local state between sessions (an allowing to refresh)
 const persistConfig = {
