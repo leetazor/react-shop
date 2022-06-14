@@ -1,5 +1,4 @@
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '../button/button.component';
 import { addItemToCart } from '../../store/cart/cart.action';
