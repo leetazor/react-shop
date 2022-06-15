@@ -9,27 +9,16 @@ import Authentication from './routes/authentication/authentication.component';
 import Shop from './routes/shop/shop.component';
 import Checkout from './routes/checkout/checkout.component';
 
-import { setCurrentUser } from './store/user/user.action';
-
-import {
-  onAuthStateChangedListener,
-  createUserDocumentFromAuth
-} from './utils/firebase/firebase.utils';
+import { checkUserSession } from './store/user/user.action';
 
 
 const App = () => {  
   const dispatch = useDispatch();
 
-  //takes care of User Auth with Firebase
+  //Observable Listener - takes care of User Auth with Firebase
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-        if(user) {
-          createUserDocumentFromAuth(user);
-        }
-        dispatch(setCurrentUser(user));
-    });      
-    //useEffect callback will return whatever the callback function runs when it un-mounts
-    return unsubscribe;
+    //this will trigger onCheckUserSession Saga
+     dispatch(checkUserSession());
   }, []);
 
   return (

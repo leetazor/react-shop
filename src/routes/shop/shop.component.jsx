@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import CategoriesPreview from '../categories-preview/categories-preview.component';
 
 import Category from '../category/category.component';
-import { fetchCategoriesAsync } from '../../store/categories/category.action';
+import { fetchCategoriesStart } from '../../store/categories/category.action';
 
 import './shop.styles.scss';
 
@@ -15,7 +15,7 @@ const Shop = () => {
     //pulls the categories and products from the Firestore database
     useEffect(() => {  
       //dispatching an Async function with Redux-Thunk
-      dispatch(fetchCategoriesAsync());   
+      dispatch(fetchCategoriesStart());   
     }, []);
   
     return ( 
