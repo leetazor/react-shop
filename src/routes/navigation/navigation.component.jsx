@@ -1,6 +1,6 @@
 import {Fragment} from 'react';
 import {Outlet, Link} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CartIcon from '../../components/cart-icon/cart-icon.component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component';
@@ -8,17 +8,17 @@ import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component
 
 import { selectCurrentUser } from '../../store/user/user.selector';
 import { isCartOpen } from '../../store/cart/cart.selector';
+import { userSignOutStart } from '../../store/user/user.action';
 
 import {ReactComponent as CrwnLogo} from '../../assets/crown.svg';
-import {signOutUser} from '../../utils/firebase/firebase.utils';
 
 import './navigation.styles.scss';
 
 const Navigation = () => {
- 
+    const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
     const isLocalCartOpen = useSelector(isCartOpen);
-
+    const signOutUser = () => dispatch(userSignOutStart());
         
     return (
       <Fragment>
@@ -31,7 +31,7 @@ const Navigation = () => {
                 SHOP
             </Link>
             {currentUser ? (
-                <span className='nav-link' onClick={signOutUser} >SIGN OUT</span>
+                <span className='nav-link' onClick={signOutUser}>SIGN OUT</span>
             ) : (
                 <Link className="nav-link" to="/auth">
                 SIGN IN

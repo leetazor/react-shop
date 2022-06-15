@@ -1,9 +1,10 @@
 import {useState} from 'react';
+import { useDispatch } from 'react-redux';
 
 import FormInput from '../form-input/form-input-component';
 import Button from '../button/button.component';
 
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth  } from '../../utils/firebase/firebase.utils';
+import { emailSignUpStart } from '../../store/user/user.action';
 
 import './sign-up-form.styles.scss';
 
@@ -15,7 +16,7 @@ const defaultFormFields = {
 }
 
 const SignUpForm = () => {
-
+    const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {displayName, email, password, confirmPassword } = formFields; 
  
@@ -31,16 +32,10 @@ const SignUpForm = () => {
             console.log("passwords do not match");
             return;
         }
-
         //attempt to Create an authentication with Firebase, to obtain uid (firebase/auth automatically creates it for us)
 
         try {
-          //de-structuring 'user' from response.user (from the response that comes back from the below function)  
-          const {user} = await createAuthUserWithEmailAndPassword(email, password); 
-
-          // if user is successtuffly created with firebase/auth, we use the newly generated uid to create a record in firebase database
-          await createUserDocumentFromAuth(user, {displayName});
-
+          dispatch(emailSignUpStart(email, password, displayName));
           //re-setting the form fields 
           resetFormFields();
           
