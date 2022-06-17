@@ -32,9 +32,9 @@ const SignUpForm = () => {
             console.log("passwords do not match");
             return;
         }
-        //attempt to Create an authentication with Firebase, to obtain uid (firebase/auth automatically creates it for us)
 
-        try {
+        //attempt to Create an authentication with Firebase, to obtain uid (firebase/auth automatically creates it for us)
+         try {
           dispatch(emailSignUpStart(email, password, displayName));
           //re-setting the form fields 
           resetFormFields();
