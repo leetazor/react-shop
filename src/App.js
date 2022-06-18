@@ -13,6 +13,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Navigation />} >
         <Route index={true} element={<Home />} />
+        {/* * after shop means there will be nestable   */}
         <Route  path='shop/*' element={<Shop />} />
         <Route  path='auth' element={<Authentication />} />
         <Route  path='checkout' element={<Checkout />} />

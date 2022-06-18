@@ -120,7 +120,8 @@ export const createUserDocumentFromAuth = async (
 };
 
 
-//below method is for writing (PUT) collections and products into the Firestore database - only need to do it once
+// below method is for writing (PUT) collections and products into the Firestore database
+// this particular function we only need to use once - to upload the initial products and categories to the database
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
@@ -137,10 +138,10 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 //GET data from the Firestore
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories');    
-  const q = query(collectionRef);    
-
-  const querySnapshot = await getDocs(q);    
-  const categoryMap = querySnapshot.docs.reduce((accumulator, docSnapshot) => {             
+  const q = query(collectionRef);  
+  const querySnapshot = await getDocs(q); 
+  
+  const categoryMap = querySnapshot.docs.reduce((accumulator, docSnapshot) => {
       const { title, items } = docSnapshot.data();
       accumulator[title.toLowerCase()] = items;
       return accumulator;

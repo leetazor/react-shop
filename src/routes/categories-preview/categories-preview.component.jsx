@@ -9,8 +9,15 @@ const CategoriesPreview = () => {
     // <></> = shorthand for <Fragment></Fragment> 
     return (
       <Fragment> 
+        {/* Object.keys returns us an array of keys, 
+        we can then map ove that array of keys, using Array.prototype.map */}
         {Object.keys(categoriesMap).map(title => {
-          const products = categoriesMap[title];          
+         {/* we are extracting products array from each 'title' key inside
+          categoriesMap object */}  
+          const products = categoriesMap[title];   
+         {/* and then we are returning a CategoryPreview component for each
+          'title' key inside categoriesMap object by mapping through them,
+           passing the title and products array into each. */}         
           return <CategoryPreview key={title} title={title} products={products} />
         })}     
       </Fragment>      

@@ -8,6 +8,8 @@ const CategoryPreview = ({ title, products }) => {
   return (
     <div className="category-preview-container">
       <h2>
+        {/* creates a link to a potential child or sibling element (depending on the Routes structure inside of the parent) 
+         in this particular case creates a dynamic /title sub-link  */}
         <Link className="title" to={title} >{title.toUpperCase()}</Link>
       </h2>
       <div className="preview">
