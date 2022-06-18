@@ -1,12 +1,19 @@
 import { createContext, useState, useEffect } from 'react';
 
-const addCartItem = (cartItems, productToAdd) => {
+/* 
+Cart's state keeps an array of items, added to cart, cart's total cost and cart's total items for us. Items are added to cart by passing ojects to the cart's array.
+Add Item to Cart, Remove Item from Cart, Clear Item from Cart, as well as the cart total cost + total amount of items in cart are all calculated
+from the items in the cat's 'state' (inside of the cart's context). 
+So, whenever we are adding something to cart, we need to get the id of the item to add, check it against the items that are already 
+in cart's state, and if it's there - increase the number of that cart item. 
+If it's not there, we're simply adding the new object to the cart's array, setting it's quantity to 1.
+*/
 
+const addCartItem = (cartItems, productToAdd) => {
     //find if cartItems contains productToAdd
     const existingCartItem = cartItems.find(
         (cartItem) => cartItem.id === productToAdd.id
     );
-
     // if found, increment quantity
     if(existingCartItem) {
         return cartItems.map((cartItem) =>
@@ -15,7 +22,6 @@ const addCartItem = (cartItems, productToAdd) => {
             : cartItem
         );
     }
-
     // return new array with modified cartItems / new cart item
     return [ ...cartItems, {...productToAdd, quantity: 1 }]
 };

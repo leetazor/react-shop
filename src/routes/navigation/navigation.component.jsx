@@ -37,6 +37,7 @@ const Navigation = () => {
           </div>
           { isCartOpen && <CartDropdown /> }
         </div>
+        {/* Outlet displays navigation (route) children of this component  */}
         <Outlet />
       </Fragment>
     )
