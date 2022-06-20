@@ -18,6 +18,9 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
+//this filters out logger when the app is on production server
+//only apply Middleware logger if we are in development
+// we apply 'Boolean' filter to avoid passing 'false' as Middleware - this way the middlewarw will only pass if && condition evaluates to 'true'
 const middleWares = [process.env.NODE_ENV !== 'production' && logger].filter(Boolean);
 
 // Setup to use the Redux Devtools in Chrome:
