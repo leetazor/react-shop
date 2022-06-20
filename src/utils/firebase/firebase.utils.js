@@ -65,12 +65,11 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 
 //GET data from the Firestore
 export const getCategoriesAndDocuments = async () => {
-    const collectionRef = collection(db, 'categories');    
-    const q = query(collectionRef);    
+  const collectionRef = collection(db, 'categories');
+  const q = query(collectionRef);
 
-    const querySnapshot = await getDocs(q);    
-    return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
-
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
 
