@@ -11,7 +11,7 @@ import { rootReducer } from './root-reducer';
 //Persist is for storing local state between sessions (an allowing to refresh)
 const persistConfig = {
   key: 'root',
-  storage,
+  storage: storage,
   // a list of reducers we don't want to persist:
   blacklist: ['user']
 }

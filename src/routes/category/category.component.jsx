@@ -11,8 +11,12 @@ import './category.styles.scss';
 const Category = () => {
   const { category } = useParams();
   const categoriesMap = useSelector(selectCategoriesMap);
-
+  console.log(categoriesMap);
+  
+  // 'category' is pulled off the url with useParams()
+  // and then used to select the correct category from cateroiesMap object.
   const [products, setProducts] = useState(categoriesMap[category]);
+  console.log(products);
 
   useEffect(() => {
      setProducts(categoriesMap[category]);
