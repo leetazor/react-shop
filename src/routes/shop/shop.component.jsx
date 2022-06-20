@@ -14,7 +14,8 @@ const Shop = () => {
 
     //pulls the categories and products from the Firestore database
     useEffect(() => {  
-      //dispatching an Async function with Redux-Thunk
+      //dispatching an Async function with Redux-Thunk Async Action
+      //(which is a function - Redux Thunk works with it) and has no type
       dispatch(fetchCategoriesAsync());   
     }, []);
   
