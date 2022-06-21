@@ -30,6 +30,7 @@ export const selectCategoriesMap = createSelector(
   }  
 );
 
+// this selector is for selecting 'isLoading' value off the categories reducer in the global store
 export const selectCategoriesIsLoading = createSelector(
   [selectCategoryReducer],
   (categories) => categories.isLoading

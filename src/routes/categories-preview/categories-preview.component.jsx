@@ -14,6 +14,8 @@ const CategoriesPreview = () => {
   
     return (
       <Fragment> 
+        {/* below is an example of conditional rendering based on the boolean value of
+        'isLoading' inside of the caregories reducer */}
         { isLoading ? (
         <Spinner />
          ) : (Object.keys(categoriesMap).map(title => {

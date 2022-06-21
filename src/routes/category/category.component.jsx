@@ -22,8 +22,10 @@ const Category = () => {
   return (
     <Fragment>
     <h2 className="category-title">{category.toUpperCase()}</h2>
+     {/* below is an example of conditional rendering based on the boolean value of
+        'isLoading' inside of the caregories reducer */}
       {
-        isLoading ? <Spinner /> :
+       isLoading ? <Spinner /> :
         <div className="category-container">      
           {
           products && products.map((product) =>
