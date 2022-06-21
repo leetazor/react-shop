@@ -1,7 +1,7 @@
 import './button.styles.scss';
 
 //below is for providing different styling for different types of buttons, the styling type is passed as buttonType prop
-const BUTTON_TYPE_CLASSES = {
+export const BUTTON_TYPE_CLASSES = {
     google: 'google-sign-in',
     inverted: 'inverted'
 }
