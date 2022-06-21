@@ -14,7 +14,7 @@ const Shop = () => {
 
     //pulls the categories and products from the Firestore database
     useEffect(() => {  
-      //dispatching an Async function with Redux-Thunk
+      //dispatching an fetchCategoriesStart() action to trigger onFetchCategories() Saga generator
       dispatch(fetchCategoriesStart());   
     }, []);
   

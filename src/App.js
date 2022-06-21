@@ -17,7 +17,7 @@ const App = () => {
 
   //Observable Listener - takes care of User Auth with Firebase
   useEffect(() => {
-    //this will trigger onCheckUserSession Saga
+    //this will dispatch checkUserSession Action that will trigger onCheckUserSession Saga
      dispatch(checkUserSession());
   }, []);
 
