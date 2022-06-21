@@ -17,9 +17,9 @@ const INITIAL_STATE = {
       return { ...state, currentUser: payload };
     case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:  
       return { ...state, currentUser: null }; 
-    case USER_ACTION_TYPES.EMAIL_SIGN_UP_FAIL: 
     case USER_ACTION_TYPES.SIGN_IN_FAIL: 
-    case USER_ACTION_TYPES.SIGN_OUT_FAIL:    
+    case USER_ACTION_TYPES.SIGN_OUT_FAIL:
+    case USER_ACTION_TYPES.EMAIL_SIGN_UP_FAIL:        
       return { ...state, error: payload };
     default:
       return state;
