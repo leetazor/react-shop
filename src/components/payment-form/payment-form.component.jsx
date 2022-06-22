@@ -28,7 +28,6 @@ const PaymentForm = () => {
     }).then(res => res.json());
 
     console.log(response);
-
   };
 
   return (
