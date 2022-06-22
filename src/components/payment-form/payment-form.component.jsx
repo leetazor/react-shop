@@ -16,6 +16,7 @@ const PaymentForm = () => {
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [paymentFeedback, setPaymentFeedback] = useState('');
 
   const paymentHandler = async (e) => {
     e.preventDefault();
@@ -57,10 +58,11 @@ const PaymentForm = () => {
     setIsProcessingPayment(false);
 
     if (paymentResult.error) {
-      alert(paymentResult.error);
+      setPaymentFeedback(`Payment failed: ${paymentResult.error.message}`);
+      console.log(paymentResult.error);
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
-        alert('payment cussessful');
+        setPaymentFeedback('Payment successful. Thank you!');
       }
     } 
   };
@@ -73,6 +75,7 @@ const PaymentForm = () => {
         <Button isLoading={isProcessingPayment} buttonType="invertedPayment" >
           Pay now
         </Button>
+        <div className="payment-feedback"><p>{paymentFeedback.length ? paymentFeedback : '' }</p></div>
        </form>
     </div>
   )
