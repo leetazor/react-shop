@@ -1,19 +1,22 @@
 import './button.styles.scss';
 
+import ButtonSpinner from '../button-spinner/button-spinner.component';
+
 //below is for providing different styling for different types of buttons, the styling type is passed as buttonType prop
-export const BUTTON_TYPE_CLASSES = {
+const BUTTON_TYPE_CLASSES = {
     google: 'google-sign-in',
-    inverted: 'inverted'
+    inverted: 'inverted',
+    invertedPayment: 'inverted payment'
 }
 
 
-const Button = ({ children, buttonType, ...otherProps }) => {
+const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
     return (
-        <button
+       <button disabled={isLoading}
          className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}
          {...otherProps}
          >
-           {children}
+           {isLoading ? <ButtonSpinner/> : children}
         </button>
     )
 }
