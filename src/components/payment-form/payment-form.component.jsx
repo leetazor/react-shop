@@ -72,7 +72,7 @@ const PaymentForm = () => {
        <form className='stripeFormContainer' onSubmit={paymentHandler}>
         <h2>Credit Card Payment:</h2>
         <CardElement />
-        <Button isLoading={isProcessingPayment} buttonType="invertedPayment" >
+        <Button isLoading={isProcessingPayment} className="button-container payment inverted"  >
           Pay now
         </Button>
         <div className="payment-feedback"><p>{paymentFeedback.length ? paymentFeedback : '' }</p></div>
