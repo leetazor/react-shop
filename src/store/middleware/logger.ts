@@ -21,4 +21,3 @@ export const loggerMiddleware: Middleware<{}, RootState> = (store) => (next) => 
   console.log('next state: ', store.getState());
 }
 
-const days = 365;

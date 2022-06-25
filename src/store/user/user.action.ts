@@ -1,5 +1,7 @@
 /* --------- IMPORTS ---------- */
 
+import {User} from 'firebase/auth';
+
 import { USER_ACTION_TYPES } from './user.types';
 import { createAction, withMatcher, Action, ActionWithPayload } from "../../utils/reducer/reducer.utils";
 import { AdditionalInformation, UserData } from '../../utils/firebase/firebase.utils';
@@ -12,7 +14,7 @@ export type EmailSignInStart = ActionWithPayload<USER_ACTION_TYPES.EMAIL_SIGN_IN
 export type SignInSuccess = ActionWithPayload<USER_ACTION_TYPES.SIGN_IN_SUCCESS, UserData >;
 export type SignInFail = ActionWithPayload<USER_ACTION_TYPES.SIGN_IN_FAIL, Error >;
 export type EmailSignUpStart = ActionWithPayload<USER_ACTION_TYPES.EMAIL_SIGN_UP_START, {email: string, password: string, displayName: string} >;
-export type EmailSignUpSuccess = ActionWithPayload<USER_ACTION_TYPES.EMAIL_SIGN_UP_SUCCESS, { user: UserData, additionalDetails: AdditionalInformation }>;
+export type EmailSignUpSuccess = ActionWithPayload<USER_ACTION_TYPES.EMAIL_SIGN_UP_SUCCESS, { user: User, additionalDetails: AdditionalInformation }>;
 export type EmailSignUpFail  = ActionWithPayload<USER_ACTION_TYPES.EMAIL_SIGN_UP_FAIL, Error>;
 export type UserSignOutStart = Action<USER_ACTION_TYPES.SIGN_OUT_START>;
 export type UserSignOutSuccess = Action<USER_ACTION_TYPES.SIGN_OUT_SUCCESS>;
@@ -29,7 +31,7 @@ export const googleSignInStart = withMatcher((): GoogleSignInStart =>
 export const emailSignInStart = withMatcher((email: string, password: string): EmailSignInStart =>
   createAction(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, {email, password}));
 
-export const signInSuccess = withMatcher((user: UserData): SignInSuccess =>
+export const signInSuccess = withMatcher((user: UserData & { id: string }): SignInSuccess =>
   createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user));
 
 export const signInFail = withMatcher((error: Error): SignInFail =>
@@ -38,7 +40,7 @@ export const signInFail = withMatcher((error: Error): SignInFail =>
 export const emailSignUpStart = withMatcher((email: string, password: string, displayName: string): EmailSignUpStart =>
   createAction(USER_ACTION_TYPES.EMAIL_SIGN_UP_START, {email, password, displayName}));
 
-export const emailSignUpSuccess = withMatcher((user: UserData, additionalDetails: AdditionalInformation): EmailSignUpSuccess =>
+export const emailSignUpSuccess = withMatcher((user: User, additionalDetails: AdditionalInformation): EmailSignUpSuccess =>
   createAction(USER_ACTION_TYPES.EMAIL_SIGN_UP_SUCCESS, { user, additionalDetails }));
 
 export const emailSignUpFail = withMatcher((error: Error): EmailSignUpFail =>

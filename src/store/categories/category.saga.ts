@@ -1,4 +1,4 @@
-import { takeLatest, all, call, put } from 'redux-saga/effects';
+import { takeLatest, all, call, put } from 'typed-redux-saga/macro';
 
 import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
 import { fetchCategoriesSuccess, fetchCategoriesFail } from './category.action';
@@ -7,15 +7,14 @@ import { CATEGORIES_ACTION_TYPES } from './category.types';
 
 export function* fetchCategoriesAsync() {
   try {
-    // the below is similar to 'async' - 'await until we get something from the callback function below'   
-    // we are using 'call' here because we are turning it into an 'effect' for redux
-    // 'categories' parameter is passed as a second argument, with a coma -
-    //this is the way parameters are passed into callable functions with a 'call' method
-    const categoriesArray = yield call(getCategoriesAndDocuments, 'categories');
-    // 'put' is used instead of 'dispatch' in generator Sagas functions:
-    yield put(fetchCategoriesSuccess(categoriesArray));
+/* the below is similar to 'async' - 'await until we get something from the callback function below' */
+/* yield with a star (*) is used with typed sagas to determine the output of each function inside of the generator  */
+    const categoriesArray = yield* call(getCategoriesAndDocuments);
+
+//'put' is used instead of 'dispatch' in generator Sagas functions: 
+    yield* put(fetchCategoriesSuccess(categoriesArray));
   } catch (error) {
-    yield put(fetchCategoriesFail(error));
+    yield* put(fetchCategoriesFail(error as Error));
   }  
 }
 
@@ -25,12 +24,12 @@ export function* fetchCategoriesAsync() {
 // 'takeLatest' is saying 'whenever you receive a bunch of the same action types, give me the latest one
 // below reads as 'whenever we take the latest FETCH_CATEGORIES_START action, we're going to initialize fetchCategoriesAsync Saga
 export function* onFetchCategories() {
-  yield takeLatest(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START, fetchCategoriesAsync)
+  yield* takeLatest(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START, fetchCategoriesAsync)
 }
 
 // exports the categoriesSaga to the rootSaga:
 // 'all' means 'run everything inside and only complete when everything is done' 
 // 'call' - calls a function execution
 export function* categoriesSaga() {
-  yield all([call(onFetchCategories)]);
+  yield* all([call(onFetchCategories)]);
 }
