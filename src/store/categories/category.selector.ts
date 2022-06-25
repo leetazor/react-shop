@@ -1,9 +1,10 @@
 /* ------------ IMPORTS ------------- */
 
 import { createSelector } from 'reselect';
-
 import { CategoriesState } from './category.reducer';
 import { CategoryMap } from './category.types';
+
+import { RootState } from '../store';
 
 /* ------------ SELECTORS ------------- */
 
@@ -11,7 +12,7 @@ import { CategoryMap } from './category.types';
 
 //this is the initial selector that is going to give us back just the slice of the reducer that we need, 
 //in this particular case = categories
-const selectCategoryReducer = (state): CategoriesState => state.categories;
+const selectCategoryReducer = (state: RootState): CategoriesState => state.categories;
 
 //Memoized Selector
 

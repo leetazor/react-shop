@@ -1,7 +1,15 @@
+/* ------------ IMPORTS ------------- */
+
 import { createSelector } from "reselect";
+import { CartState } from './cart.reducer';
+import { RootState } from '../store';
+
+/* ------------ PART OF THE STATE SELECTORS ------------- */
 
 // initial selector for 'Reselect' library
-const selectCartReducer = (state) => state.cart;
+const selectCartReducer = (state: RootState): CartState => state.cart;
+
+/* ------------ MEMOIZED SELECTORS ------------- */
 
 export const selectCartItems = createSelector(
   [selectCartReducer],
