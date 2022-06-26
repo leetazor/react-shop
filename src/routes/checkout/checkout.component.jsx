@@ -1,6 +1,7 @@
 
 import { useSelector } from 'react-redux';
 
+
 import { selectCartItems } from '../../store/cart/cart.selector';
 import { selectCartTotal } from '../../store/cart/cart.selector';
 
@@ -45,6 +46,6 @@ const Checkout = () => {
 
       </div>
     )
-}
+};
 
 export default Checkout;
