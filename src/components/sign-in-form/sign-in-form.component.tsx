@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 
 import FormInput from '../form-input/form-input-component';
 import Button from '../button/button.component';
@@ -30,31 +31,32 @@ const SignInForm = () => {
         dispatch(googleSignInStart());    
     }  
 
-    const handleSubmit = async (event) => {
-    event.preventDefault();    
+     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();   
      
         //attempt to Create an authentication with Firebase, to obtain uid (firebase/auth automatically creates it for us)
 
         try {
           dispatch(emailSignInStart(email, password));
           //re-setting the form fields 
-          resetFormFields();
-          
-        } catch(error) { 
-            switch(error.code) {
-              case 'auth/wrong-password':
+          resetFormFields();          
+        } catch(error) {  
+            switch((error as AuthError).code) {
+              case AuthErrorCodes.INVALID_PASSWORD:
                 alert('password is incorrect');  
                 break;
-              case 'auth/user-not-found':
+              case AuthErrorCodes.USER_DELETED:
                 alert('username does not exist');
                 break;
               default:
                 console.log('error authenticating the user', error); 
-            }                                     
+            }  
+           
+                                               
         }
     };
 
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
       //below we are spreading all of the form fields and only updating the value of the field with the same name as event.target.name      
       setFormFields({...formFields, [name]: value});      
@@ -69,9 +71,9 @@ const SignInForm = () => {
                 <FormInput label="Password" type="password" required onChange={handleChange} name="password" value={password} />
                 <div className="buttons-container">
                     <Button type="submit" >Sign In</Button>
-                    <Button type="button" buttonType="googleSignIn" onClick={signInWithGoogle} >Google sign In</Button>
+                    <Button type="button" buttonType='googleSignIn' onClick={signInWithGoogle} >Google sign In</Button>
                 </div>
-                             
+                                            
             </form>
         </div>
     )

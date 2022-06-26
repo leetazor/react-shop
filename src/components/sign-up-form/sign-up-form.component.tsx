@@ -1,5 +1,6 @@
-import {useState} from 'react';
+import {useState, FormEvent, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 
 import FormInput from '../form-input/form-input-component';
 import Button from '../button/button.component';
@@ -24,7 +25,7 @@ const SignUpForm = () => {
         setFormFields(defaultFormFields);
     }   
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();    
         ///check password === confirmPassword
 
@@ -41,17 +42,15 @@ const SignUpForm = () => {
           
         } catch(error) {
             //leveraging firebase functionality 'user email already exists' preventing creation of an account if the email exists
-            if(error.code === 'auth/email-already-in-use') {
+            if((error as AuthError).code === AuthErrorCodes.EMAIL_EXISTS) {
                 alert('cannot create user, email already in use');
             } else {
                 console.log('error creating the user', error);
-            };           
+            };         
         }
-
-
     };
 
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
       //below we are spreading all of the form fields and only updating the value of the field with the same name as event.target.name      
       setFormFields({...formFields, [name]: value});      

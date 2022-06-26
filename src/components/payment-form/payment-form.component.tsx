@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { useSelector } from 'react-redux';
 
 import {selectCartTotal} from '../../store/cart/cart.selector';
 import {selectCurrentUser} from '../../store/user/user.selector';
 
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+// this one is for ensuring the Type of the StipeCardElement
+import { StripeCardElement } from '@stripe/stripe-js';
 
 import Button from '../button/button.component';
 
 import './payment-form.styles.scss';
+
+// Type Guard or Type Predicate Function
+// to ensure that Stripe card (elements.getElement(CardElement)) is definitely not null
+// the below is saying: card is StripeCardElement, if it returns 'True'
+// if card is not equal to 'null', it can only be a Stripe Card Element
+const ifValidCardElement = (card: StripeCardElement | null): card is StripeCardElement => card !== null;
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -18,7 +26,7 @@ const PaymentForm = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [paymentFeedback, setPaymentFeedback] = useState('');
 
-  const paymentHandler = async (e) => {
+  const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if(!stripe || !elements) {
@@ -45,10 +53,16 @@ const PaymentForm = () => {
 
     // the above can also be done like this:
     // const clientSecret = response.paymentIntent.client_secret;
+
+    // elements.getElement(CardElement) can potentially return us 'null'
+    // Type 'null' is not assignable to type 'StripeCardElement | StripeCardNumberElement | { token: string; }'
+    // to deal with this, we need to perform a check and make sure that elements.getElement(CardElement) is not null
+    const cardDetails = elements.getElement(CardElement);
+    if(!ifValidCardElement(cardDetails)) return;
     
     const paymentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
-        card: elements.getElement(CardElement),
+        card: cardDetails,
         billing_details: {
           name: currentUser ? currentUser.displayName : 'Guest'
         }
